@@ -8,12 +8,7 @@ void save_file()
     for (int row = 0; row < E.num_rows; row++)
     {
         for (int col = 0; col < E.num_cols; col++)
-        {
-            if (E.state[row][col] == 0)
-                fprintf(file, "0");
-            else
-                fprintf(file, "%c", E.state[row][col]);
-        }
+            fprintf(file, "%c", E.state[row][col]);
         fprintf(file, "\n");
     }
 
@@ -64,7 +59,7 @@ void get_input()
             E.state[E.cursor_row][E.cursor_col] = c;
             break;
         case 'x': // erase color
-            E.state[E.cursor_row][E.cursor_col] = 0;
+            E.state[E.cursor_row][E.cursor_col] = '0';
             break;
 
         // handle meta stuff

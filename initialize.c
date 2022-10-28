@@ -72,7 +72,7 @@ int set_state(char* file_contents)
     {
         for (int col = 0; col < E.num_cols; col++)
         {
-            E.state[row][col] = *file_contents == '0' ? 0 : *file_contents;
+            E.state[row][col] = *file_contents;
             file_contents++;
         }
         if (*file_contents++ != '\n') return -1;
@@ -101,7 +101,7 @@ void init_editor(char* filename)
 
     if (!filename || file_error)
     {
-        memset(E.state, 0, sizeof(E.state)); // zero out state
+        memset(E.state, '0', sizeof(E.state)); // zero out state
         get_window_size(&E.screen_rows, &E.screen_cols);
 
         E.screen_cols /= 2; // 'cause each "pixel" is two characters wide
