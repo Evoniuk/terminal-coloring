@@ -1,6 +1,6 @@
 #include "common.h"
 #include "raw-mode.h"
-#include "editor.h"
+#include "initialize.h"
 #include "render.h"
 #include "input.h"
 

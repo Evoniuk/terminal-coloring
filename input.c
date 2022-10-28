@@ -1,5 +1,25 @@
 #include "common.h"
 
+void save_file()
+{
+    FILE* file = fopen(E.filename, "w");
+
+    fprintf(file, "%d\n%d\n", E.num_rows, E.num_cols);
+    for (int row = 0; row < E.num_rows; row++)
+    {
+        for (int col = 0; col < E.num_cols; col++)
+        {
+            if (E.state[row][col] == 0)
+                fprintf(file, "0");
+            else
+                fprintf(file, "%c", E.state[row][col]);
+        }
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+}
+
 void get_input()
 {
     char c;
@@ -7,6 +27,7 @@ void get_input()
 
     switch(c)
     {
+        // handle arrow keys
         case '\x1b': {
             char seq[2]; // if ESC, read in sequence
             read(STDIN_FILENO, &seq[0], 1);
@@ -44,6 +65,11 @@ void get_input()
             break;
         case 'x': // erase color
             E.state[E.cursor_row][E.cursor_col] = 0;
+            break;
+
+        // handle meta stuff
+        case 's': // save
+            if (E.filename) save_file();
             break;
         case 'q': // quit
             exit(0);
