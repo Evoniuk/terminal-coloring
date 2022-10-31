@@ -10,6 +10,20 @@
 #define NUM_ROWS 32
 #define NUM_COLS 80
 
+enum editor_key
+{
+    BACKSPACE  =  127, // ASCII value of backspace
+    ARROW_LEFT = 1000, // avoid conflict with 'normal' character presses
+    ARROW_RIGHT,
+    ARROW_UP,
+    ARROW_DOWN,
+    DEL_KEY,
+    HOME_KEY,
+    END_KEY,
+    PAGE_UP,
+    PAGE_DOWN,
+};
+
 struct screen_state
 {
     int    screen_rows;
