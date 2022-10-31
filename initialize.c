@@ -104,8 +104,6 @@ void init_editor(char* filename)
         memset(E.state, '0', sizeof(E.state)); // zero out state
         get_window_size(&E.screen_rows, &E.screen_cols);
 
-        E.screen_cols /= 2; // 'cause each "pixel" is two characters wide
-
         // set rows and cols to either predefined values or screen size, whichever is smaller
         E.num_rows = NUM_ROWS > E.screen_rows ? E.screen_rows : NUM_ROWS;
         E.num_cols = NUM_COLS > E.screen_cols ? E.screen_cols : NUM_COLS;

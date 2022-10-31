@@ -31,11 +31,11 @@ void draw_row(int row)
         if (row == E.cursor_row && col == E.cursor_col)   // if cursor, draw it
         {
             if (E.state[row][col] == 'w' || E.state[row][col] == 'W')
-                printf(ESCAPE "5;31m__" ESCAPE "25;39m"); // red cursor on white background
-            else printf(ESCAPE "5m__" ESCAPE "25m");
+                printf(ESCAPE "5;31m_" ESCAPE "25;39m"); // red cursor on white background
+            else printf(ESCAPE "5m_" ESCAPE "25m");
         }
 
-        else printf("  ");                                // spaces for the background to color
+        else printf(" ");                                // spaces for the background to color
     }
 
     printf("\r\n");                                       // go to the first column on the next line

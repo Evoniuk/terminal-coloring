@@ -8,7 +8,7 @@
 
 #define ESCAPE "\x1b["
 #define NUM_ROWS 32
-#define NUM_COLS 40
+#define NUM_COLS 80
 
 struct screen_state
 {
