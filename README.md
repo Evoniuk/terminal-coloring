@@ -33,6 +33,8 @@ You can color the space by pressing a key associated with a color. Those keys ar
 
 A capital letter will make the color bright. For example, `R` will produce a bright red, and `C` a bright cyan.
 
+To erase, press `x`.
+
 To quit, press `q`.
 
 ### Save your drawings
@@ -57,5 +59,5 @@ To open a file with `tdraw`, simply do `tdraw filename`. To save, press `s`.
     | `l`   | Black   |
     | `w`   | White   |
 
-    Capitalizing to make the colors bright.
+    capitalizing to make the colors bright, and pressing `x` to erase.
 3. Press `s` to save and `q` to quit.
