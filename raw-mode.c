@@ -6,6 +6,8 @@ void disable_raw_mode()
     printf(ESCAPE "2J" ESCAPE "H" ESCAPE "?25h");        // clear screen, go home, cursor visible
 }
 
+// EXTERNAL:
+
 void enable_raw_mode()
 {
     printf(ESCAPE "2J" ESCAPE "?25l");                  // clear screen, cursor invisible

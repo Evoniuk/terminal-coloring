@@ -75,6 +75,8 @@ int read_key_press()
     else return c;
 }
 
+// EXTERNAL:
+
 void get_input()
 {
     int c = read_key_press();

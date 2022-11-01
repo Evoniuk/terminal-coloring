@@ -81,6 +81,8 @@ int set_state(char* file_contents)
     return 0;
 }
 
+// EXTERNAL:
+
 void init_editor(char* filename)
 {
     E.cursor_row = 0;

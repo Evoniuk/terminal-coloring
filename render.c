@@ -41,6 +41,8 @@ void draw_row(int row)
     printf("\r\n");                                       // go to the first column on the next line
 }
 
+// EXTERNAL:
+
 void draw_screen()
 {
     printf(ESCAPE "H"); // start at (0, 0)
