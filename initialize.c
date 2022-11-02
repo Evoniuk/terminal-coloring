@@ -71,10 +71,7 @@ int set_state(char* file_contents)
     for (int row = 0; row < E.num_rows; row++)
     {
         for (int col = 0; col < E.num_cols; col++)
-        {
-            E.state[row][col] = *file_contents;
-            file_contents++;
-        }
+            E.state[row][col] = *file_contents++;
         if (*file_contents++ != '\n') return -1;
     }
 
@@ -102,12 +99,9 @@ void init_editor(char* filename)
     }
 
     if (!filename || file_error)
-    {
         memset(E.state, '0', sizeof(E.state)); // zero out state
-        get_window_size(&E.screen_rows, &E.screen_cols);
 
-        // set rows and cols to either predefined values or screen size, whichever is smaller
-        E.num_rows = NUM_ROWS > E.screen_rows ? E.screen_rows : NUM_ROWS;
-        E.num_cols = NUM_COLS > E.screen_cols ? E.screen_cols : NUM_COLS;
-    }
+    get_window_size(&E.screen_rows, &E.screen_cols);
+    E.num_rows = NUM_ROWS > E.screen_rows ? E.screen_rows : NUM_ROWS; // This should be checked regardless of file status
+    E.num_cols = NUM_COLS > E.screen_cols ? E.screen_cols : NUM_COLS;
 }
