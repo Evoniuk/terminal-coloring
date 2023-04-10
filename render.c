@@ -76,12 +76,14 @@ void draw_sidebar()
         "CTRL+S          save",
         "CTRL+Q          quit",
         "delete         erase",
+        ESCAPE "1;7m" " FILENAME           " ESCAPE "0m",
+        E.filename,
         NULL,
     };
 
-    for (int row = 0; sidebar[row]; row++)
-    {   // `row + 1` 'cause rows and cols are 1-indexed, `cols + 2` for padding
-        printf(ESCAPE "%d;%dH", row + 1, E.num_cols + 2); // go to appropriate row and column
+    for (int row = 1; sidebar[row]; row++) // row starts at 1 due to 1-indexing
+    {                                      // `cols + 2` for padding
+        printf(ESCAPE "%d;%dH", row, E.num_cols + 2); // go to appropriate row and column
         printf("%s", sidebar[row]);
     }
 }
