@@ -36,6 +36,7 @@ struct screen_state
     char*  filename;
     int    editing_filename;
     int    has_been_edited;
+    int    drawing_mode;
     struct termios orig_termios;    // original terminal attributes
 };
 

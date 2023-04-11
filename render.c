@@ -46,8 +46,8 @@ void draw_row(int row)
     {
         printf("%s", color_sequence(E.state[row][col]));
 
-        if (row == E.cursor_row && col == E.cursor_col && !E.editing_filename)  // if cursor, draw it, unless
-        {                                                                       // filename is being edited
+        if (row == E.cursor_row && col == E.cursor_col && !E.editing_filename && E.drawing_mode)  // if cursor, draw it, unless
+        {                                                                                         // filename is being edited
             if (E.state[row][col] == 'w' || E.state[row][col] == 'W')
                 printf(ESCAPE "5;31m_" ESCAPE "25;39m"); // red cursor on white background
             else printf(ESCAPE "5m_" ESCAPE "25m");
@@ -100,11 +100,15 @@ void draw_sidebar()
 
 // EXTERNAL:
 
-void draw_screen()
+void draw_rows()
 {
-    if (E.num_cols + 22 < E.screen_cols) draw_sidebar(); // 20 character width + 2 padding
-
     printf(ESCAPE "H"); // start at (0, 0)
     for (int row = 0; row < E.num_rows; row++)
         draw_row(row);
+}
+
+void draw_screen()
+{
+    if (E.num_cols + 22 < E.screen_cols) draw_sidebar(); // 20 character width + 2 padding
+    draw_rows();
 }
