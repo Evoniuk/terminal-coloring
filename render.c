@@ -87,10 +87,12 @@ void draw_sidebar()
         printf("%s", sidebar[row]);
     }
 
-    // print filename, in italics with a leading '>' if being edited
+    // print filename, in italics with a leading '> ' if being edited
     printf(ESCAPE "%d;%dH", row + 1, E.num_cols + 2);
     if (E.editing_filename) printf("> "ESCAPE "3m");
+    if (E.has_been_edited) printf(ESCAPE "3m"); // italics if unsaved edits
     printf("%s", E.filename ? E.filename : "");
+    if (E.has_been_edited) printf(ESCAPE "23m");
     if (E.editing_filename) printf(ESCAPE "5m_" ESCAPE "25m"); // draw "cursor" after
     printf(ESCAPE "0K"); // clear rest of line in case of backspacing
     if (E.editing_filename) printf(ESCAPE "23m");

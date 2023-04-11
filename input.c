@@ -134,14 +134,23 @@ void get_input()
         case 'M':
         case 'C':
         case 'W':
-            E.state[E.cursor_row][E.cursor_col] = c;
+            if (E.state[E.cursor_row][E.cursor_col] != c)
+            {
+                E.has_been_edited = 1;
+                E.state[E.cursor_row][E.cursor_col] = c;
+            }
             break;
         case BACKSPACE: // erase
-            E.state[E.cursor_row][E.cursor_col] = '0';
+            if (E.state[E.cursor_row][E.cursor_col] != '0')
+            {
+                E.has_been_edited = 1;
+                E.state[E.cursor_row][E.cursor_col] = '0';
+            }
             break;
 
         // handle meta stuff
         case CTRL_KEY('s'): // save
+            E.has_been_edited = 0;
             if (E.filename) save_file();
             else create_file();
             break;
