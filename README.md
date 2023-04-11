@@ -16,9 +16,9 @@ This will make an executable called `tdraw`.
 
 ## How it works
 
-When you run `tdraw`, your terminal will become blank and a blinking cursor will appear, which you can move around with the arrow keys.
+When you run `tdraw`, your terminal will become blank and a blinking cursor will appear, which you can move around with the arrow keys. There will also be a sidebar describing what keys do what.
 
-You can color the space by pressing a key associated with a color. Those keys are:
+You can color the space your cursor is on by pressing a key associated with a color. Those keys are:
 
 | Key   | Color   |
 | ----- | ------- |
@@ -41,9 +41,13 @@ To quit, press `CTRL+Q`.
 
 If you provide `tdraw` with a file, it can save your drawing to that file. Next time you open the file with `tdraw` your drawing will be displayed!
 
-To open a file with `tdraw`, simply do `tdraw filename`. To save, press `CTRL+S`.
+To open a file with `tdraw`, simply run `tdraw filename`. To save, press `CTRL+S`.
 
-## Summary
+### Display without editing
+
+If you just want to admire your drawing, you can run `tdraw -p filename`.
+
+## Quick start
 
 1. Start with `tdraw filename`.
 2. Move the cursor with the arrow keys, placing colors with the following keys:
@@ -61,3 +65,4 @@ To open a file with `tdraw`, simply do `tdraw filename`. To save, press `CTRL+S`
 
     capitalizing to make the colors bright, and pressing delete (backspace) to erase.
 3. Press `CTRL+S` to save and `CTRL+Q` to quit.
+4. Admire your creation by running `tdraw -p filename`.
