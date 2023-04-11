@@ -1,4 +1,5 @@
 #include "common.h"
+#include "render.h"
 
 #define CTRL_KEY(c) ((c) & 0x1f)
 
@@ -75,6 +76,25 @@ int read_key_press()
     else return c;
 }
 
+void create_file() // TODO: handle the creation of a file
+{
+    #define MAX_FILENAME_LEN 64
+    E.filename = calloc(MAX_FILENAME_LEN, sizeof(char));
+    E.editing_filename = 1;
+    draw_screen(); // to render leading '>'
+
+    char c = read_key_press();
+    for (int i = 0; (c != '\r') && (i < MAX_FILENAME_LEN - 1); c = read_key_press())
+    {
+        if (c == BACKSPACE) E.filename[--i] = '\0';
+        else E.filename[i++] = c;
+        draw_screen();
+    }
+
+    E.editing_filename = 0;
+    save_file();
+}
+
 // EXTERNAL:
 
 void get_input()
@@ -123,6 +143,7 @@ void get_input()
         // handle meta stuff
         case CTRL_KEY('s'): // save
             if (E.filename) save_file();
+            else create_file();
             break;
         case CTRL_KEY('q'): // quit
             exit(0);

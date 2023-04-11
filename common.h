@@ -34,6 +34,7 @@ struct screen_state
     int    num_cols;
     char   state[NUM_ROWS][NUM_COLS];
     char*  filename;
+    int    editing_filename;
     struct termios orig_termios;    // original terminal attributes
 };
 

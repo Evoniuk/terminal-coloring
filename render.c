@@ -46,8 +46,8 @@ void draw_row(int row)
     {
         printf("%s", color_sequence(E.state[row][col]));
 
-        if (row == E.cursor_row && col == E.cursor_col)  // if cursor, draw it
-        {
+        if (row == E.cursor_row && col == E.cursor_col && !E.editing_filename)  // if cursor, draw it, unless
+        {                                                                       // filename is being edited
             if (E.state[row][col] == 'w' || E.state[row][col] == 'W')
                 printf(ESCAPE "5;31m_" ESCAPE "25;39m"); // red cursor on white background
             else printf(ESCAPE "5m_" ESCAPE "25m");
@@ -62,7 +62,7 @@ void draw_row(int row)
 void draw_sidebar()
 {
     char* sidebar[] = {
-        ESCAPE "1;7m"        " COLORS             " ESCAPE "0m",
+        ESCAPE "1;7m" " COLORS             " ESCAPE "0m",
         ESCAPE RED     "  " ESCAPE "0m" " r        " ESCAPE B_RED     "  " ESCAPE "0m" " R ",
         ESCAPE GREEN   "  " ESCAPE "0m" " g        " ESCAPE B_GREEN   "  " ESCAPE "0m" " G ",
         ESCAPE BLUE    "  " ESCAPE "0m" " b        " ESCAPE B_BLUE    "  " ESCAPE "0m" " B ",
@@ -77,15 +77,23 @@ void draw_sidebar()
         "CTRL+Q          quit",
         "delete         erase",
         ESCAPE "1;7m" " FILENAME           " ESCAPE "0m",
-        E.filename,
         NULL,
     };
 
-    for (int row = 1; sidebar[row]; row++) // row starts at 1 due to 1-indexing
-    {                                      // `cols + 2` for padding
-        printf(ESCAPE "%d;%dH", row, E.num_cols + 2); // go to appropriate row and column
+    int row = 0;
+    for (; sidebar[row]; row++)
+    {                       // `row + 1` for 1-indexing, `cols + 2` for padding
+        printf(ESCAPE "%d;%dH", row + 1, E.num_cols + 2); // go to appropriate row and column
         printf("%s", sidebar[row]);
     }
+
+    // print filename, in italics with a leading '>' if being edited
+    printf(ESCAPE "%d;%dH", row + 1, E.num_cols + 2);
+    if (E.editing_filename) printf("> "ESCAPE "3m");
+    printf("%s", E.filename ? E.filename : "");
+    if (E.editing_filename) printf(ESCAPE "5m_" ESCAPE "25m"); // draw "cursor" after
+    printf(ESCAPE "0K"); // clear rest of line in case of backspacing
+    if (E.editing_filename) printf(ESCAPE "23m");
 }
 
 // EXTERNAL:
