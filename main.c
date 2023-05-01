@@ -13,7 +13,7 @@ int main(int argc, char** argv)
     {
         switch(option)
         {
-            case 'p':
+            case 'p': // 'p' for 'picture'
                 E.filename = optarg;
                 E.drawing_mode = 0;
                 break;
@@ -24,13 +24,7 @@ int main(int argc, char** argv)
         }
     }
 
-    if (!E.drawing_mode)
-    {
-        init_editor(E.filename);
-        draw_rows();
-    }
-
-    else
+    if (E.drawing_mode)
     {
         enable_raw_mode();
         init_editor(argv[1]);
@@ -41,6 +35,12 @@ int main(int argc, char** argv)
             get_input();
         }
     }
-    
+
+    else // if not drawing, just print picture
+    {
+        init_editor(E.filename);
+        draw_rows();
+    }
+
     return 0;
 }

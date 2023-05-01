@@ -76,7 +76,7 @@ int read_key_press()
     else return c;
 }
 
-void create_file() // TODO: handle the creation of a file
+void create_file()
 {
     #define MAX_FILENAME_LEN 64
     E.filename = calloc(MAX_FILENAME_LEN, sizeof(char));
