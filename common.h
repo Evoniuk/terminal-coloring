@@ -34,6 +34,7 @@ struct screen_state
     int    num_cols;
     char   state[NUM_ROWS][NUM_COLS];
     char*  filename;
+    char   status_message[80];
     int    editing_filename;
     int    has_been_edited;
     int    drawing_mode;

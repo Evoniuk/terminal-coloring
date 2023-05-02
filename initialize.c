@@ -87,6 +87,7 @@ void init_editor(char* filename)
     E.editing_filename = 0;
     E.has_been_edited  = 0;
     E.filename         = filename;
+    memset(E.status_message, 0, 80);
 
     int file_error = 0;
     if (filename)

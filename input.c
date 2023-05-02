@@ -1,3 +1,4 @@
+#include <string.h>
 #include "common.h"
 #include "render.h"
 
@@ -99,8 +100,10 @@ void create_file()
 
 void get_input()
 {
-    int c = read_key_press();
+    #define QUIT_TIMES 2
+    static int quit_times = QUIT_TIMES;
 
+    int c = read_key_press();
     switch(c)
     {
         // handle arrow keys
@@ -155,8 +158,21 @@ void get_input()
             else create_file();
             break;
         case CTRL_KEY('q'): // quit
+            if (E.has_been_edited && quit_times) // give warning in case of unsaved changes
+            {
+                snprintf(
+                    E.status_message,
+                    80,
+                    "WARNING: Unsaved changes. Press CTRL+Q %d more times to quit.",
+                    quit_times--
+                );
+                return; // this return avoids the reset of quit_times at end of get_input
+            }
             exit(0);
             break;
         default: break;
     }
+
+    quit_times = QUIT_TIMES;
+    memset(E.status_message, 0, 80);
 }

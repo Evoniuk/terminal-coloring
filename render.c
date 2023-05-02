@@ -87,6 +87,11 @@ void draw_sidebar()
         printf("%s", sidebar[row]);
     }
 
+    // draw status message, if present
+    printf(ESCAPE "%d;%dH", E.num_rows + 1, 0);
+    printf(ESCAPE RED "%s", E.status_message);
+    printf(ESCAPE CLEAR ESCAPE "0K"); // end red coloring and clear line for when status_message shrinks
+
     // print filename, in italics with a leading '> ' if being edited
     printf(ESCAPE "%d;%dH", row + 1, E.num_cols + 2);
     if (E.editing_filename) printf("> "ESCAPE "3m");
