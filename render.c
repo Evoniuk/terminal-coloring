@@ -1,23 +1,5 @@
 #include "common.h"
 
-#define BLACK     "40m"
-#define RED       "41m"
-#define GREEN     "42m"
-#define YELLOW    "43m"
-#define BLUE      "44m"
-#define MAGENTA   "45m"
-#define CYAN      "46m"
-#define WHITE     "47m"
-#define B_BLACK   "100m"
-#define B_RED     "101m"
-#define B_GREEN   "102m"
-#define B_YELLOW  "103m"
-#define B_BLUE    "104m"
-#define B_MAGENTA "105m"
-#define B_CYAN    "106m"
-#define B_WHITE   "107m"
-#define CLEAR     "49m"
-
 char* color_sequence(char letter)
 {
     return
@@ -46,11 +28,14 @@ void draw_row(int row)
     {
         printf("%s", color_sequence(E.state[row][col]));
 
-        if (row == E.cursor_row && col == E.cursor_col && !E.editing_filename && E.drawing_mode)  // if cursor, draw it, unless
-        {                                                                                         // filename is being edited
+        if (row == E.cursor_row &&
+            col == E.cursor_col &&
+            !E.editing_filename &&
+            E.drawing_mode)  // if cursor, draw it, unless
+        {                    // filename is being edited
             if (E.state[row][col] == 'w' || E.state[row][col] == 'W')
                 printf(ESCAPE "5;31m_" ESCAPE "25;39m"); // red cursor on white background
-            else printf(ESCAPE "5m_" ESCAPE "25m");
+            else printf(ESCAPE "5m_" ESCAPE "25m");      // blinking cursor
         }
 
         else printf(" ");                                // space for the background to color
@@ -87,11 +72,6 @@ void draw_sidebar()
         printf("%s", sidebar[row]);
     }
 
-    // draw status message, if present
-    printf(ESCAPE "%d;%dH", E.num_rows + 1, 0);
-    printf(ESCAPE RED "%s", E.status_message);
-    printf(ESCAPE CLEAR ESCAPE "0K"); // end red coloring and clear line for when status_message shrinks
-
     // print filename, in italics with a leading '> ' if being edited
     printf(ESCAPE "%d;%dH", row + 1, E.num_cols + 2);
     if (E.editing_filename) printf("> "ESCAPE "3m");
@@ -101,6 +81,13 @@ void draw_sidebar()
     if (E.editing_filename) printf(ESCAPE "5m_" ESCAPE "25m"); // draw "cursor" after
     printf(ESCAPE "0K"); // clear rest of line in case of backspacing
     if (E.editing_filename) printf(ESCAPE "23m");
+
+
+    // draw status message, if present
+    printf(ESCAPE "%d;%dH", E.num_rows + 1, 0);
+    printf(ESCAPE "%s%s%s%s", E.status_message_bg, ESCAPE, E.status_message_fg, E.status_message);
+    printf(ESCAPE "0m" ESCAPE "0K"); // end coloring and clear line
+                                     // for when status_message shrinks
 }
 
 // EXTERNAL:

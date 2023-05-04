@@ -88,6 +88,8 @@ void init_editor(char* filename)
     E.has_been_edited  = 0;
     E.filename         = filename;
     memset(E.status_message, 0, 80);
+    E.status_message_bg = RED;   // red background,
+    E.status_message_fg = "97m"; // white foreground
 
     int file_error = 0;
     if (filename)
@@ -99,6 +101,13 @@ void init_editor(char* filename)
             free(file_contents);
         }
         else file_error = 1;
+    }
+
+    if (file_error)
+    {
+        snprintf(E.status_message, 80, "Error in provided file.");
+        E.status_message_bg = RED;
+        E.status_message_fg = "97m";
     }
 
     if (!filename || file_error)

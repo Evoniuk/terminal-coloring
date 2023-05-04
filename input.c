@@ -166,6 +166,8 @@ void get_input()
                     "WARNING: Unsaved changes. Press CTRL+Q %d more times to quit.",
                     quit_times--
                 );
+                E.status_message_bg = YELLOW;
+                E.status_message_fg = "30m"; // black
                 return; // this return avoids the reset of quit_times at end of get_input
             }
             exit(0);
