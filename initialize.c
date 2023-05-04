@@ -7,8 +7,8 @@ int get_cursor_position(int* rows, int* cols)
     char buffer[32];
 
     printf(ESCAPE "6n"); // request cursor position. This escape
-                         // sequence writes ESC[{row};{col}R to stdin
-    unsigned int i;
+                         // sequence writes ESC[{row};{col}R
+    unsigned int i;      // to stdin, which we then read
     for (i = 0; i < sizeof(buffer) - 1; i++)
         if (read(STDIN_FILENO, &buffer[i], 1) != 1 || (buffer[i] == 'R'))
             break; // if read fails or we get to the R we stop
@@ -34,13 +34,13 @@ int get_window_size(int* rows, int* cols)
         // in the case that ioctl fails or ws_col is 0, move the cursor
         // 999 times right and down to reach the bottom right corner
         printf(ESCAPE "999C" ESCAPE "999B");
-        return get_cursor_position(rows, cols);
-    }
+        return get_cursor_position(rows, cols); // if get_cursor_position fails
+    }                                           // it will return -1, otherwise 0
 
     *rows = ws.ws_row;
     *cols = ws.ws_col;
 
-    return 0;
+    return 0; // indicate success
 }
 
 char* read_file(char* filename)
